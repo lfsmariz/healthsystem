@@ -1,8 +1,9 @@
 package edu.ufrn.pds.healthsystem.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import edu.ufrn.pds.healthsystem.dto.SampleDTO;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/")
@@ -10,6 +11,7 @@ public class Ping {
 
     @GetMapping("/ping")
     public String ping(){
-        return "Pong";
+        return  "pong";
     }
+
 }
