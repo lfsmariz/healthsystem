@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,5 +19,6 @@ public class Achivement {
 
     private String name;
 
-    private List<Player> players;
+    @ManyToMany
+    private Set<Player> players;
 }

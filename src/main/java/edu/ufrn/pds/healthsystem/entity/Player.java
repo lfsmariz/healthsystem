@@ -4,13 +4,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Player extends User{
 
-    private List<Board> boards;
-    private List<Achivement> achivements;
+    @ManyToMany
+    private Set<Board> boards;
+
+    @ManyToMany
+    private Set<Achivement> achivements;
 }
