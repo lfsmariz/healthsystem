@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Achivement {
+public class Achievement {
     @Id
     @GeneratedValue
     private Long id;

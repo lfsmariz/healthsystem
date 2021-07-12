@@ -12,9 +12,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class Player extends User{
 
+    private Integer points;
+
     @ManyToMany
     private Set<Board> boards;
 
     @ManyToMany
-    private Set<Achivement> achivements;
+    private Set<Achievement> achievements;
 }

@@ -20,5 +20,5 @@ public class Board {
     private String name;
 
     @ManyToMany
-    private Set<Achivement> achivements;
+    private Set<Achievement> achievements;
 }
