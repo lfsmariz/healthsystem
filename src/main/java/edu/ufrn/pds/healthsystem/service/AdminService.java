@@ -37,11 +37,11 @@ public class AdminService {
     public BoardDTO createBoard(BoardForm boardForm){
         Admin admin = adminRepository.findById(boardForm.getId_admin()).orElseThrow(RuntimeException::new);
 
-        Board board = new Board(boardForm.getName(), admin);
+        Board board = new Board(boardForm.getName(), admin, boardForm.getDate_end());
 
         boardRepository.save(board);
 
-        return new BoardDTO(boardForm.getName(), admin.getId(), board.getId());
+        return new BoardDTO(boardForm.getName(), admin.getId(), board.getId(), board.getDateEnd());
     }
 
     public AchievementDTO createAchievement (AchievementForm achievementForm){
