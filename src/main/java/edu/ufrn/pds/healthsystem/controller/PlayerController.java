@@ -1,7 +1,6 @@
 package edu.ufrn.pds.healthsystem.controller;
 
 import edu.ufrn.pds.healthsystem.dto.PlayerDTO;
-import edu.ufrn.pds.healthsystem.entity.Player;
 import edu.ufrn.pds.healthsystem.form.PlayerForm;
 import edu.ufrn.pds.healthsystem.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
