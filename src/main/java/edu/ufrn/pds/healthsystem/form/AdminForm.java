@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AdminForm {
-    String name;
+    private String name;
 }
