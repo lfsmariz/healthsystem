@@ -13,14 +13,14 @@ import java.util.Set;
 @NoArgsConstructor
 public class Board {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name="user_id", referencedColumnName = "user_id")
     private Admin admin;
 
     @OneToMany(
@@ -31,4 +31,9 @@ public class Board {
 
     @ManyToMany(mappedBy = "boards")
     private Set<Player> players;
+
+    public Board(String name, Admin admin){
+        this.name = name;
+        this.admin = admin;
+    }
 }
