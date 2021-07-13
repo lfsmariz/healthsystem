@@ -20,4 +20,8 @@ public class Admin extends User{
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<Board> boards;
+
+    public Admin(String name){
+        super(name);
+    }
 }
