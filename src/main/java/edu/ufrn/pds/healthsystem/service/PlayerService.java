@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayerService {
 
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
     @Autowired
     PlayerService(PlayerRepository playerRepository){

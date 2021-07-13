@@ -14,14 +14,12 @@ import edu.ufrn.pds.healthsystem.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.ufrn.pds.healthsystem.repository.AdminRepository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminService {
-    private AdminRepository adminRepository;
-    private BoardRepository boardRepository;
-    private AchievementRepository achievementRepository;
+    private final AdminRepository adminRepository;
+    private final BoardRepository boardRepository;
+    private final AchievementRepository achievementRepository;
 
     @Autowired
     AdminService(AdminRepository adminRepository, BoardRepository boardRepository, AchievementRepository achievementRepository){
