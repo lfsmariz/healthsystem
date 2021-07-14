@@ -10,4 +10,5 @@ import lombok.Setter;
 public class BoardForm {
     private Long id_admin;
     private String name;
+    private Integer date_end;
 }

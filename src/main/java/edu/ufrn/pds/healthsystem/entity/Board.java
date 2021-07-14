@@ -32,8 +32,11 @@ public class Board {
     @ManyToMany(mappedBy = "boards")
     private Set<Player> players;
 
-    public Board(String name, Admin admin){
+    private Integer dateEnd;
+
+    public Board(String name, Admin admin, Integer dateEnd){
         this.name = name;
         this.admin = admin;
+        this.dateEnd = dateEnd;
     }
 }

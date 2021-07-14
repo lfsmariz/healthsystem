@@ -2,7 +2,6 @@ package edu.ufrn.pds.healthsystem.controller;
 
 import edu.ufrn.pds.healthsystem.dto.AchievementDTO;
 import edu.ufrn.pds.healthsystem.dto.BoardDTO;
-import edu.ufrn.pds.healthsystem.entity.Board;
 import edu.ufrn.pds.healthsystem.form.AchievementForm;
 import edu.ufrn.pds.healthsystem.form.BoardForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    private AdminService adminService;
+    private final AdminService adminService;
 
     @Autowired
     public AdminController (AdminService adminService){
