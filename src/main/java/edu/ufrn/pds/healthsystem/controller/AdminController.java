@@ -3,14 +3,15 @@ package edu.ufrn.pds.healthsystem.controller;
 import edu.ufrn.pds.healthsystem.dto.AchievementDTO;
 import edu.ufrn.pds.healthsystem.dto.BoardDTO;
 import edu.ufrn.pds.healthsystem.dto.RegisterDTO;
-import edu.ufrn.pds.healthsystem.form.AchievementForm;
-import edu.ufrn.pds.healthsystem.form.BoardForm;
-import edu.ufrn.pds.healthsystem.form.RegisterPlayerForm;
+import edu.ufrn.pds.healthsystem.form.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.ufrn.pds.healthsystem.dto.AdminDTO;
-import edu.ufrn.pds.healthsystem.form.AdminForm;
 import edu.ufrn.pds.healthsystem.service.AdminService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
@@ -40,5 +41,13 @@ public class AdminController {
     @PostMapping("/registerplayer")
     public RegisterDTO registerPlayer(@RequestBody RegisterPlayerForm registerPlayerForm) {
         return adminService.registerPlayer(registerPlayerForm);
+    }
+
+    @GetMapping("/get_achievements")
+    public Set<AchievementDTO> getAchievementsActiveUser(
+            @RequestParam Long id_board,
+            @RequestParam Long id_user
+    ){
+        return  adminService.getAchievementsActiveUser(id_board, id_user);
     }
 }

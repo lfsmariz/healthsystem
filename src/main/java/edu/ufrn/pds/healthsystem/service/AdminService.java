@@ -8,16 +8,18 @@ import edu.ufrn.pds.healthsystem.entity.Achievement;
 import edu.ufrn.pds.healthsystem.entity.Admin;
 import edu.ufrn.pds.healthsystem.entity.Board;
 import edu.ufrn.pds.healthsystem.entity.Player;
-import edu.ufrn.pds.healthsystem.form.AchievementForm;
-import edu.ufrn.pds.healthsystem.form.AdminForm;
-import edu.ufrn.pds.healthsystem.form.BoardForm;
-import edu.ufrn.pds.healthsystem.form.RegisterPlayerForm;
+import edu.ufrn.pds.healthsystem.form.*;
 import edu.ufrn.pds.healthsystem.repository.AchievementRepository;
 import edu.ufrn.pds.healthsystem.repository.BoardRepository;
 import edu.ufrn.pds.healthsystem.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.ufrn.pds.healthsystem.repository.AdminRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AdminService {
@@ -72,5 +74,20 @@ public class AdminService {
         playerRepository.save(player);
 
         return new RegisterDTO(player.getId(), player.getName(), board.getId(), board.getName());
+    }
+
+    public Set<AchievementDTO> getAchievementsActiveUser(Long idBoard, Long idUser){
+        Set<AchievementDTO> achievements = new HashSet<AchievementDTO>();
+        List<Map> listMapAchivevements = achievementRepository.findByIdBoardAndIdUser(idBoard, idUser);
+
+        for(Map map : listMapAchivevements) {
+            achievements.add(new AchievementDTO(
+                    map.get("id"),
+                    map.get("name"),
+                    map.get("points"),
+                    map.get("board_name")));
+        }
+
+        return achievements;
     }
 }
