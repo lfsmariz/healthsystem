@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -32,9 +33,9 @@ public class Board {
     @ManyToMany(mappedBy = "boards")
     private Set<Player> players;
 
-    private Integer dateEnd;
+    private LocalDate dateEnd;
 
-    public Board(String name, Admin admin, Integer dateEnd){
+    public Board(String name, Admin admin, LocalDate dateEnd){
         this.name = name;
         this.admin = admin;
         this.dateEnd = dateEnd;

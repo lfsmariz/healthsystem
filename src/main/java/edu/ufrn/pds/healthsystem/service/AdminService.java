@@ -3,14 +3,18 @@ package edu.ufrn.pds.healthsystem.service;
 import edu.ufrn.pds.healthsystem.dto.AchievementDTO;
 import edu.ufrn.pds.healthsystem.dto.AdminDTO;
 import edu.ufrn.pds.healthsystem.dto.BoardDTO;
+import edu.ufrn.pds.healthsystem.dto.RegisterDTO;
 import edu.ufrn.pds.healthsystem.entity.Achievement;
 import edu.ufrn.pds.healthsystem.entity.Admin;
 import edu.ufrn.pds.healthsystem.entity.Board;
+import edu.ufrn.pds.healthsystem.entity.Player;
 import edu.ufrn.pds.healthsystem.form.AchievementForm;
 import edu.ufrn.pds.healthsystem.form.AdminForm;
 import edu.ufrn.pds.healthsystem.form.BoardForm;
+import edu.ufrn.pds.healthsystem.form.RegisterPlayerForm;
 import edu.ufrn.pds.healthsystem.repository.AchievementRepository;
 import edu.ufrn.pds.healthsystem.repository.BoardRepository;
+import edu.ufrn.pds.healthsystem.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.ufrn.pds.healthsystem.repository.AdminRepository;
@@ -20,12 +24,14 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final BoardRepository boardRepository;
     private final AchievementRepository achievementRepository;
+    private final PlayerRepository playerRepository;
 
     @Autowired
-    AdminService(AdminRepository adminRepository, BoardRepository boardRepository, AchievementRepository achievementRepository){
+    AdminService(AdminRepository adminRepository, BoardRepository boardRepository, AchievementRepository achievementRepository, PlayerRepository playerRepository){
         this.adminRepository = adminRepository;
         this.boardRepository = boardRepository;
         this.achievementRepository = achievementRepository;
+        this.playerRepository = playerRepository;
     }
 
     public AdminDTO create(AdminForm adminForm){
@@ -56,5 +62,15 @@ public class AdminService {
         var ach = achievementRepository.save(achievement);
 
         return new AchievementDTO(ach.getId(), ach.getName(), ach.getPoints(), ach.getBoard().getName());
+    }
+
+    public RegisterDTO registerPlayer(RegisterPlayerForm registerPlayerForm) {
+        Player player = playerRepository.findById(registerPlayerForm.getId_player()).orElseThrow(RuntimeException::new);
+        Board board = boardRepository.findById(registerPlayerForm.getId_board()).orElseThrow(RuntimeException::new);
+
+        player.getBoards().add(board);
+        playerRepository.save(player);
+
+        return new RegisterDTO(player.getId(), player.getName(), board.getId(), board.getName());
     }
 }

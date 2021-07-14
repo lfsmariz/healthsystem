@@ -2,8 +2,10 @@ package edu.ufrn.pds.healthsystem.controller;
 
 import edu.ufrn.pds.healthsystem.dto.AchievementDTO;
 import edu.ufrn.pds.healthsystem.dto.BoardDTO;
+import edu.ufrn.pds.healthsystem.dto.RegisterDTO;
 import edu.ufrn.pds.healthsystem.form.AchievementForm;
 import edu.ufrn.pds.healthsystem.form.BoardForm;
+import edu.ufrn.pds.healthsystem.form.RegisterPlayerForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.ufrn.pds.healthsystem.dto.AdminDTO;
 import edu.ufrn.pds.healthsystem.form.AdminForm;
@@ -33,5 +35,10 @@ public class AdminController {
     @PostMapping("/createachievement")
     public AchievementDTO createAchievement(@RequestBody AchievementForm achievementForm) {
         return adminService.createAchievement(achievementForm);
+    }
+
+    @PostMapping("/registerplayer")
+    public RegisterDTO registerPlayer(@RequestBody RegisterPlayerForm registerPlayerForm) {
+        return adminService.registerPlayer(registerPlayerForm);
     }
 }
