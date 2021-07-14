@@ -9,8 +9,6 @@ import edu.ufrn.pds.healthsystem.dto.AdminDTO;
 import edu.ufrn.pds.healthsystem.service.AdminService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @RestController
