@@ -23,4 +23,13 @@ public class PlayerService {
 
         return new PlayerDTO(p);
     }
+
+    public PlayerDTO completeTask(Long idPlayer){
+        Player player = playerRepository.findById(idPlayer).orElseThrow(RuntimeException::new);
+        player.setPoints( player.getPoints() + 1);
+
+        Player p = playerRepository.save(player);
+
+        return new PlayerDTO(p);
+    }
 }
