@@ -1,11 +1,8 @@
 package edu.ufrn.pds.healthsystem.controller;
 
-import edu.ufrn.pds.healthsystem.dto.AchievementDTO;
-import edu.ufrn.pds.healthsystem.dto.BoardDTO;
-import edu.ufrn.pds.healthsystem.dto.RegisterDTO;
+import edu.ufrn.pds.healthsystem.dto.*;
 import edu.ufrn.pds.healthsystem.form.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import edu.ufrn.pds.healthsystem.dto.AdminDTO;
 import edu.ufrn.pds.healthsystem.service.AdminService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +39,7 @@ public class AdminController {
     }
 
     @GetMapping("/get_achievements")
-    public Set<AchievementDTO> getAchievementsActiveUser(
+    public AchievementsByBoardDTO getAchievementsActiveUser(
             @RequestParam Long id_board,
             @RequestParam Long id_user
     ){

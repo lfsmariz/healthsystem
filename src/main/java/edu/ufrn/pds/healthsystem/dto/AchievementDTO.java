@@ -1,5 +1,6 @@
 package edu.ufrn.pds.healthsystem.dto;
 
+import edu.ufrn.pds.healthsystem.entity.Achievement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,10 @@ public class AchievementDTO {
     private Integer points;
     private String board_name;
 
-    public AchievementDTO(Object id, Object name, Object points, Object board_name) {
-        this.id = Long.valueOf(String.valueOf(id));
-        this.name = name.toString();
-        this.points = Integer.valueOf(String.valueOf(points));
-        this.board_name = board_name.toString();
+    public AchievementDTO(Achievement achievement) {
+        this.id = achievement.getId();
+        this.name = achievement.getName();
+        this.points = achievement.getPoints();
+        this.board_name = achievement.getBoard().getName();
     }
 }
