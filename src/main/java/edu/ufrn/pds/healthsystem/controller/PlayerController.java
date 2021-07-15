@@ -22,8 +22,8 @@ public class PlayerController {
         return playerService.create(playerForm);
     }
 
-    @GetMapping("/teste")
-    public String teste(){
-        return "testesss";
+    @PostMapping("/complete_task")
+    public PlayerDTO completeTask(@RequestParam Long id_player){
+        return playerService.completeTask(id_player);
     }
 }
