@@ -1,5 +1,6 @@
 package edu.ufrn.pds.healthsystem.controller;
 
+import edu.ufrn.pds.healthsystem.dto.BoardsByPlayersDTO;
 import edu.ufrn.pds.healthsystem.dto.PlayerDTO;
 import edu.ufrn.pds.healthsystem.form.PlayerForm;
 import edu.ufrn.pds.healthsystem.service.PlayerService;
@@ -26,4 +27,7 @@ public class PlayerController {
     public PlayerDTO completeTask(@RequestParam Long id_player){
         return playerService.completeTask(id_player);
     }
+
+    @GetMapping("/boards")
+    public BoardsByPlayersDTO getBoards(@RequestParam Long id_player){ return playerService.getBoards(id_player); }
 }
