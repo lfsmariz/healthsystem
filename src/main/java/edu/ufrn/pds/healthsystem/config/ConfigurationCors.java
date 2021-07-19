@@ -12,11 +12,11 @@ import org.springframework.web.filter.CorsFilter;
 public class ConfigurationCors {
 
   @Bean
-  public FilterRegistrationBean<CorsFilter> corsFilter(){
+  public FilterRegistrationBean corsFilter(){
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-    source.registerCorsConfiguration("/**", config);
-    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
+    source.registerCorsConfiguration("/*", config);
+    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
     bean.setOrder(0);
     return bean;
   }
