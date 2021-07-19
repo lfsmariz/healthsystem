@@ -1,7 +1,10 @@
 package edu.ufrn.pds.healthsystem.controller;
 
+import edu.ufrn.pds.healthsystem.dto.AchievementCompleteDTO;
+import edu.ufrn.pds.healthsystem.dto.AchievementsByPlayer;
 import edu.ufrn.pds.healthsystem.dto.BoardsByPlayersDTO;
 import edu.ufrn.pds.healthsystem.dto.PlayerDTO;
+import edu.ufrn.pds.healthsystem.form.AchievementCompleteForm;
 import edu.ufrn.pds.healthsystem.form.PlayerForm;
 import edu.ufrn.pds.healthsystem.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,14 @@ public class PlayerController {
         return playerService.completeTask(id_player);
     }
 
+    @PostMapping("/redeem_achievement")
+    public AchievementCompleteDTO completeTask(@RequestBody AchievementCompleteForm form){
+        return playerService.redeemAchievement(form);
+    }
+
     @GetMapping("/boards")
     public BoardsByPlayersDTO getBoards(@RequestParam Long id_player){ return playerService.getBoards(id_player); }
+
+    @GetMapping("/my_achievement/{id_player}")
+    public AchievementsByPlayer getMyAchievements(@PathVariable Long id_player){ return playerService.getMyAchievements(id_player); }
 }
