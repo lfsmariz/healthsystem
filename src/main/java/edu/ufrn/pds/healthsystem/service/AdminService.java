@@ -57,7 +57,7 @@ public class AdminService {
 
         Achievement achievement = new Achievement(achievementForm, adminBoard);
 
-        var ach = achievementRepository.save(achievement);
+        Achievement ach = achievementRepository.save(achievement);
 
         return new AchievementDTO(ach.getId(), ach.getName(), ach.getPoints(), ach.getBoard().getName());
     }
