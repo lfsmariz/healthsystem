@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.ufrn.pds.healthsystem.service.AdminService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -44,5 +42,15 @@ public class AdminController {
             @RequestParam Long id_user
     ){
         return  adminService.getAchievementsActiveUser(id_board, id_user);
+    }
+
+    @GetMapping("/boards/{idAdmin}")
+    public AdminBoardsDTO getBoards(@PathVariable Long idAdmin){
+        return  adminService.getBoards(idAdmin);
+    }
+
+    @GetMapping("/board_players/{idBoard}")
+    public BoardPlayersDTO getBoardPlayers(@PathVariable Long idBoard){
+        return  adminService.getBoardPlayers(idBoard);
     }
 }

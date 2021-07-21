@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.ufrn.pds.healthsystem.repository.AdminRepository;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -96,5 +95,17 @@ public class AdminService {
 
 
         return new AchievementsByBoardDTO(achievements);
+    }
+
+    public AdminBoardsDTO getBoards(Long idAdmin) {
+        Admin admin = adminRepository.findById(idAdmin).orElseThrow(RuntimeException::new);
+
+        return new AdminBoardsDTO(admin.getBoards());
+    }
+
+    public BoardPlayersDTO getBoardPlayers(Long idBoard) {
+        Board board = boardRepository.findById(idBoard).orElseThrow(RuntimeException::new);
+
+        return new BoardPlayersDTO(board.getPlayers());
     }
 }
