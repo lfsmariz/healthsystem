@@ -73,4 +73,10 @@ public class PlayerService {
 
         return new AchievementsByPlayer(achivementSet);
     }
+
+  public PlayerDTO getPlayer(Long id_player) {
+        Player player = playerRepository.findById(id_player).orElseThrow(RuntimeException::new);
+
+        return new PlayerDTO(player);
+  }
 }

@@ -41,4 +41,7 @@ public class PlayerController {
 
     @GetMapping("/my_achievement/{id_player}")
     public AchievementsByPlayer getMyAchievements(@PathVariable Long id_player){ return playerService.getMyAchievements(id_player); }
+
+    @GetMapping("/{id_player}")
+    public PlayerDTO getPlayer(@PathVariable Long id_player){ return playerService.getPlayer(id_player); }
 }

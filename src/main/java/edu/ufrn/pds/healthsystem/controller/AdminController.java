@@ -53,4 +53,7 @@ public class AdminController {
     public BoardPlayersDTO getBoardPlayers(@PathVariable Long idBoard){
         return  adminService.getBoardPlayers(idBoard);
     }
+
+    @GetMapping("/{idAdmin}")
+    public AdminDTO getAdmin(@PathVariable Long idAdmin){ return adminService.getAdmin(idAdmin); }
 }

@@ -108,4 +108,10 @@ public class AdminService {
 
         return new BoardPlayersDTO(board.getPlayers());
     }
+
+    public AdminDTO getAdmin(Long idAdmin) {
+        Admin admin = adminRepository.findById(idAdmin).orElseThrow(RuntimeException::new);
+
+        return new AdminDTO(admin);
+    }
 }
