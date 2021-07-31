@@ -82,16 +82,6 @@ public class AdminService {
                 .orElseThrow(RuntimeException::new);
 
         achievements = board.getAchievements().stream().map(AchievementDTO::new).collect(Collectors.toSet());
-//        for(Map map : listMapAchivevements) {
-//            achievements.add(new AchievementDTO(
-//                    map.get("id"),
-//                    map.get("name"),
-//                    map.get("points"),
-//                    map.get("board_name")));
-//        }
-//
-//        return achievements;
-
 
 
         return new AchievementsByBoardDTO(achievements);
@@ -113,5 +103,12 @@ public class AdminService {
         Admin admin = adminRepository.findById(idAdmin).orElseThrow(RuntimeException::new);
 
         return new AdminDTO(admin);
+    }
+
+    public AchievementsByBoardDTO getAchievementsActiveUser(Long idBoard) {
+        Set<AchievementDTO> achievements;
+        Board board = boardRepository.findById(idBoard).orElseThrow(RuntimeException::new);
+        achievements = board.getAchievements().stream().map(AchievementDTO::new).collect(Collectors.toSet());
+        return new AchievementsByBoardDTO(achievements);
     }
 }

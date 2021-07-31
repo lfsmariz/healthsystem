@@ -56,4 +56,11 @@ public class AdminController {
 
     @GetMapping("/{idAdmin}")
     public AdminDTO getAdmin(@PathVariable Long idAdmin){ return adminService.getAdmin(idAdmin); }
+
+    @GetMapping("/get_achievements/{idBoard}")
+    public AchievementsByBoardDTO getAchievementsBoard(
+            @PathVariable Long idBoard
+    ){
+        return  adminService.getAchievementsActiveUser(idBoard);
+    }
 }
