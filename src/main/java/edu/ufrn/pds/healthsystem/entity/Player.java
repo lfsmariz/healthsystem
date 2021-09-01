@@ -66,7 +66,13 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public void addPoints(Integer value) {
-        this.setPoints(this.getPoints() + value);
+        int valuePointsDay = this.getPoints() % ((value*7) + 5);
+
+        if(valuePointsDay == (value*6)){
+            this.setPoints(this.getPoints() + value + 5);
+        }else{
+            this.setPoints(this.getPoints() + value);
+        }
     }
 
     @Override
