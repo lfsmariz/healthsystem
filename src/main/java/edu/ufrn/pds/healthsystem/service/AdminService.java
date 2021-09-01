@@ -6,6 +6,7 @@ import edu.ufrn.pds.healthsystem.entity.Admin;
 import edu.ufrn.pds.healthsystem.entity.Board;
 import edu.ufrn.pds.healthsystem.entity.Player;
 import edu.ufrn.pds.healthsystem.form.*;
+import edu.ufrn.pds.healthsystem.framework.Fidelity;
 import edu.ufrn.pds.healthsystem.repository.AchievementRepository;
 import edu.ufrn.pds.healthsystem.repository.BoardRepository;
 import edu.ufrn.pds.healthsystem.repository.PlayerRepository;
@@ -22,13 +23,15 @@ public class AdminService {
     private final BoardRepository boardRepository;
     private final AchievementRepository achievementRepository;
     private final PlayerRepository playerRepository;
+    private final Fidelity fidelity;
 
     @Autowired
-    AdminService(AdminRepository adminRepository, BoardRepository boardRepository, AchievementRepository achievementRepository, PlayerRepository playerRepository){
+    AdminService(AdminRepository adminRepository, BoardRepository boardRepository, AchievementRepository achievementRepository, PlayerRepository playerRepository, Fidelity fidelity){
         this.adminRepository = adminRepository;
         this.boardRepository = boardRepository;
         this.achievementRepository = achievementRepository;
         this.playerRepository = playerRepository;
+        this.fidelity = fidelity;
     }
 
     public AdminDTO create(AdminForm adminForm){
@@ -40,6 +43,7 @@ public class AdminService {
     public BoardDTO createBoard(BoardForm boardForm){
         Admin admin = adminRepository.findById(boardForm.getId_admin()).orElseThrow(RuntimeException::new);
 
+        //framework
         Board board = new Board(boardForm.getName(), admin, boardForm.getDate_end());
 
         boardRepository.save(board);
@@ -49,14 +53,18 @@ public class AdminService {
 
     public AchievementDTO createAchievement (AchievementForm achievementForm){
         Admin admin = adminRepository.findById(achievementForm.getId_admin()).orElseThrow(RuntimeException::new);
-        Board adminBoard = admin.getBoards()
-                .stream()
-                .filter(b -> b.getId().equals(achievementForm.getId_board())).findFirst()
-                .orElseThrow(RuntimeException::new);
 
-        Achievement achievement = new Achievement(achievementForm, adminBoard);
+//        //framework
+//        Board adminBoard = admin.getBoards()
+//                .stream()
+//                .filter(b -> b.getId().equals(achievementForm.getId_board())).findFirst()
+//                .orElseThrow(RuntimeException::new);
 
-        Achievement ach = achievementRepository.save(achievement);
+        Achievement ach = (Achievement) fidelity.getAdminControl().createAchievement(admin, achievementForm.getName(), achievementForm.getPoints(), achievementForm.getId_board());
+
+//        Achievement achievement = new Achievement(achievementForm, adminBoard);
+
+        ach = achievementRepository.save(ach);
 
         return new AchievementDTO(ach.getId(), ach.getName(), ach.getPoints(), ach.getBoard().getName());
     }
@@ -65,7 +73,13 @@ public class AdminService {
         Player player = playerRepository.findById(registerPlayerForm.getId_player()).orElseThrow(RuntimeException::new);
         Board board = boardRepository.findById(registerPlayerForm.getId_board()).orElseThrow(RuntimeException::new);
 
-        player.getBoards().add(board);
+        //framework
+        player.getBoardsd().add(board);
+
+        fidelity.getAdminControl().addPlayerBoard(player, board);
+
+        System.out.println(player);
+
         playerRepository.save(player);
 
         return new RegisterDTO(player.getId(), player.getName(), board.getId(), board.getName());
@@ -75,14 +89,17 @@ public class AdminService {
         Set<AchievementDTO> achievements;
         Player user = playerRepository.findById(idUser).orElseThrow(RuntimeException::new);
 
-        Board board = user.getBoards()
-                .stream()
-                .filter(b -> b.getId().equals(idBoard))
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
+        //framework
+//        Board board = user.getBoards()
+//                .stream()
+//                .filter(b -> b.getId().equals(idBoard))
+//                .findFirst()
+//                .orElseThrow(RuntimeException::new);
+//
 
-        achievements = board.getAchievements().stream().map(AchievementDTO::new).collect(Collectors.toSet());
+        Board board = (Board) fidelity.getPlayerControl().getBoardById(user, idBoard);
 
+        achievements = board.getAchievements().stream().map(b -> new AchievementDTO((Achievement) b)).collect(Collectors.toSet());
 
         return new AchievementsByBoardDTO(achievements);
     }
@@ -90,7 +107,9 @@ public class AdminService {
     public AdminBoardsDTO getBoards(Long idAdmin) {
         Admin admin = adminRepository.findById(idAdmin).orElseThrow(RuntimeException::new);
 
-        return new AdminBoardsDTO(admin.getBoards());
+        Set<Board> boards = admin.getBoards().stream().map(b -> (Board) b).collect(Collectors.toSet());
+
+        return new AdminBoardsDTO(boards);
     }
 
     public BoardPlayersDTO getBoardPlayers(Long idBoard) {
@@ -108,7 +127,7 @@ public class AdminService {
     public AchievementsByBoardDTO getAchievementsActiveUser(Long idBoard) {
         Set<AchievementDTO> achievements;
         Board board = boardRepository.findById(idBoard).orElseThrow(RuntimeException::new);
-        achievements = board.getAchievements().stream().map(AchievementDTO::new).collect(Collectors.toSet());
+        achievements = board.getAchievements().stream().map(b -> new AchievementDTO((Achievement) b)).collect(Collectors.toSet());
         return new AchievementsByBoardDTO(achievements);
     }
 }

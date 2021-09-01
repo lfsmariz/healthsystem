@@ -2,9 +2,12 @@ package edu.ufrn.pds.healthsystem.service;
 
 import edu.ufrn.pds.healthsystem.dto.*;
 import edu.ufrn.pds.healthsystem.entity.Achievement;
+import edu.ufrn.pds.healthsystem.entity.Board;
 import edu.ufrn.pds.healthsystem.entity.Player;
 import edu.ufrn.pds.healthsystem.form.AchievementCompleteForm;
 import edu.ufrn.pds.healthsystem.form.PlayerForm;
+import edu.ufrn.pds.healthsystem.framework.Fidelity;
+import edu.ufrn.pds.healthsystem.framework.interfaces.PlayerFrame;
 import edu.ufrn.pds.healthsystem.repository.AchievementRepository;
 import edu.ufrn.pds.healthsystem.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +21,32 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final AchievementRepository achievementRepository;
+    private final Fidelity fidelity;
+
 
     @Autowired
-    PlayerService(PlayerRepository playerRepository, AchievementRepository achievementRepository){
+    PlayerService(PlayerRepository playerRepository, AchievementRepository achievementRepository, Fidelity fidelity){
         this.playerRepository = playerRepository;
         this.achievementRepository = achievementRepository;
+        this.fidelity = fidelity;
     }
 
     public PlayerDTO create(PlayerForm playerForm){
-        Player player = new Player(playerForm.getName());
-        Player p = playerRepository.save(player);
+        Player player = new Player();
+        //framework
+        Player playerFrame = (Player) fidelity.getPlayerControl().createPlayer(player, playerForm.getName());
 
-        return new PlayerDTO(p);
+        playerRepository.save(playerFrame);
+
+        return new PlayerDTO(playerFrame);
     }
 
     public PlayerDTO completeTask(Long idPlayer){
         Player player = playerRepository.findById(idPlayer).orElseThrow(RuntimeException::new);
-        player.setPoints( player.getPoints() + 1);
+
+        //framework
+//        player.setPoints( player.getPoints() + 1);
+        fidelity.getBoardControl().completeTask(player, 10);
 
         Player p = playerRepository.save(player);
 
@@ -44,7 +56,13 @@ public class PlayerService {
     public BoardsByPlayersDTO getBoards(Long idPlayer){
        Set<BoardDTO> boards;
        Player player = playerRepository.findById(idPlayer).orElseThrow(RuntimeException::new);
-       boards =  player.getBoards().stream().map(BoardDTO::new).collect(Collectors.toSet());
+
+       //framework
+//       boards =  player.getBoards().stream().map(BoardDTO::new).collect(Collectors.toSet());
+
+        Set<Board> boardSet= fidelity.getPlayerControl().getBoards(player).stream().map(b -> (Board) b).collect(Collectors.toSet());
+
+        boards =  boardSet.stream().map(BoardDTO::new).collect(Collectors.toSet());
 
        return new BoardsByPlayersDTO(boards);
     }
@@ -53,13 +71,16 @@ public class PlayerService {
         Player player = playerRepository.findById(form.getId_user()).orElseThrow(RuntimeException::new);
         Achievement achievement = achievementRepository.findById(form.getId_achievement()).orElseThrow(RuntimeException::new);
 
-        boolean playerContainAchiev = player.getAchievements().contains(achievement);
-        if(player.getPoints() < achievement.getPoints() || playerContainAchiev){
-            throw new RuntimeException("sem pontos suficientes");
-        }
+        //framework
+//        boolean playerContainAchiev = player.getAchievements().contains(achievement);
+//        if(player.getPoints() < achievement.getPoints() || playerContainAchiev){
+//            throw new RuntimeException("sem pontos suficientes");
+//        }
+//
+//        player.setPoints(player.getPoints() - achievement.getPoints());
+//        achievement.getPlayers().add(player);]
 
-        player.setPoints(player.getPoints() - achievement.getPoints());
-        achievement.getPlayers().add(player);
+        fidelity.getAchievementControl().redeemAchievement(player, achievement);
 
         achievementRepository.save(achievement);
 
@@ -69,9 +90,12 @@ public class PlayerService {
     public AchievementsByPlayer getMyAchievements(Long id_player) {
         Player player = playerRepository.findById(id_player).orElseThrow(RuntimeException::new);
 
-        Set<Achievement> achivementSet = player.getAchievements();
+        //framework
+//        Set<Achievement> achivementSet = player.getAchievements();
 
-        return new AchievementsByPlayer(achivementSet);
+        Set<Achievement> achievementSet = fidelity.getPlayerControl().getAchievements(player).stream().map(a -> (Achievement) a).collect(Collectors.toSet());
+
+        return new AchievementsByPlayer(achievementSet);
     }
 
   public PlayerDTO getPlayer(Long id_player) {
