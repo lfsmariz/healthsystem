@@ -3,6 +3,7 @@ package edu.ufrn.pds.healthsystem.entity;
 import edu.ufrn.pds.healthsystem.framework.interfaces.AchievementFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.BoardFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.PlayerFrame;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class Player extends User implements PlayerFrame {
 
     private Integer points;
+
+    private Integer daysPresence;
 
     @ManyToMany(
             cascade = CascadeType.ALL,
@@ -31,6 +35,7 @@ public class Player extends User implements PlayerFrame {
     public Player(String name) {
         super(name);
         this.points = 0;
+        this.daysPresence = 0;
     }
 
     @Override
@@ -64,13 +69,12 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public void addPoints(Integer value) {
-        int valuePointsDay = this.getPoints() % ((value*7) + 5);
+        this.daysPresence = (this.daysPresence+1) % 7;
 
-        if(valuePointsDay == (value*6)){
+        if(this.daysPresence == 0)
             this.setPoints(this.getPoints() + value + 5);
-        }else{
+        else
             this.setPoints(this.getPoints() + value);
-        }
     }
 
     @Override
