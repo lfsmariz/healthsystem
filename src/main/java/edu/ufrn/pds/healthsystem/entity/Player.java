@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,6 +25,8 @@ public class Player extends User implements PlayerFrame {
 
     private Integer daysPresence;
 
+    private LocalDate lastRequiredAchievement;
+
     @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -36,6 +39,7 @@ public class Player extends User implements PlayerFrame {
         super(name);
         this.points = 0;
         this.daysPresence = 0;
+        this.lastRequiredAchievement = LocalDate.now().minusMonths(1);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class Player extends User implements PlayerFrame {
     }
 
     @Override
-    public boolean containAchievement(AchievementFrame achievementFrame) {
+    public boolean canGetAchievement(AchievementFrame achievementFrame) {
         return this.getAchievements().contains(achievementFrame);
     }
 

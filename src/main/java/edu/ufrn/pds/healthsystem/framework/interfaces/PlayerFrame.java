@@ -20,5 +20,5 @@ public interface PlayerFrame {
 
   Integer getPoints();
 
-  boolean containAchievement(AchievementFrame achievementFrame);
+  boolean canGetAchievement(AchievementFrame achievementFrame);
 }
