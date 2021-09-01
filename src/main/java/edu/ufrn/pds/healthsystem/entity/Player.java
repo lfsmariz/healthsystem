@@ -3,7 +3,6 @@ package edu.ufrn.pds.healthsystem.entity;
 import edu.ufrn.pds.healthsystem.framework.interfaces.AchievementFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.BoardFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.PlayerFrame;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
