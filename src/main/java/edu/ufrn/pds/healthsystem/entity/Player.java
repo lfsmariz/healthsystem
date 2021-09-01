@@ -95,7 +95,7 @@ public class Player extends User implements PlayerFrame {
     public boolean canGetAchievement(AchievementFrame achievementFrame) {
         LocalDate dateNow = LocalDate.now();
 
-        if(dateNow.getMonth().equals(lastRequiredAchievement.getMonth())
+        if(dateNow.getMonthValue() == lastRequiredAchievement.getMonthValue()
                 && dateNow.getYear() == lastRequiredAchievement.getYear()){
             return  false;
         }else{

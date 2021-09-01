@@ -17,7 +17,7 @@ public class AchievementControl {
   public void redeemAchievement(PlayerFrame playerFrame, AchievementFrame achievementFrame) {
 
     if (noNegativePoints){
-      if (playerFrame.getPoints() < achievementFrame.getPoints() || playerFrame.canGetAchievement(achievementFrame)){
+      if (playerFrame.getPoints() < achievementFrame.getPoints() || !playerFrame.canGetAchievement(achievementFrame)){
         throw new RuntimeException("Usuário não pode resgatar achievement");
       } else {
         playerFrame.removePoints(achievementFrame.getPoints());
