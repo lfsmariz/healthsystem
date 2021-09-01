@@ -20,13 +20,11 @@ public class AchievementControl {
       if (playerFrame.getPoints() < achievementFrame.getPoints() || playerFrame.containAchievement(achievementFrame)){
         throw new RuntimeException("sem pontos suficientes");
       } else {
-        Integer pts = playerFrame.getPoints() - achievementFrame.getPoints();
-        playerFrame.removePoints(pts);
+        playerFrame.removePoints(achievementFrame.getPoints());
         achievementFrame.associatePlayer(playerFrame);
       }
     } else {
-      Integer pts = playerFrame.getPoints() - achievementFrame.getPoints();
-      playerFrame.removePoints(pts);
+      playerFrame.removePoints(achievementFrame.getPoints());
       achievementFrame.associatePlayer(playerFrame);
     }
   }
