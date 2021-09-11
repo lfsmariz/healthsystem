@@ -69,7 +69,9 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public void addPoints(Integer value) {
-        this.setPoints(this.getPoints() + value);
+        int pointsPlusPlan = (int) ( value * (planType * 0.2));
+
+        this.setPoints(this.getPoints() + value + pointsPlusPlan);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public boolean canGetAchievement(AchievementFrame achievementFrame) {
-       return true;
+        return true;
     }
 
     @Override
