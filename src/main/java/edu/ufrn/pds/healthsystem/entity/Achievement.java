@@ -26,8 +26,6 @@ public class Achievement implements AchievementFrame {
 
     private Integer points;
 
-    private Integer planType;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="board_id", referencedColumnName = "board_id")
     private Board board;
@@ -40,7 +38,6 @@ public class Achievement implements AchievementFrame {
         this.name = achievementForm.getName();
         this.points = achievementForm.getPoints();
         this.board = board;
-        this.planType = achievementForm.getPlanType();
     }
 
     public Achievement(String name, Integer points, Board board){

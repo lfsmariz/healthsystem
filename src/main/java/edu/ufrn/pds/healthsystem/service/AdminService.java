@@ -61,7 +61,7 @@ public class AdminService {
 //                .orElseThrow(RuntimeException::new);
 
         Achievement ach = (Achievement) fidelity.getAdminControl().createAchievement(admin, achievementForm.getName(), achievementForm.getPoints(), achievementForm.getId_board());
-        ach.setPlanType(achievementForm.getPlanType());
+
 //        Achievement achievement = new Achievement(achievementForm, adminBoard);
 
         ach = achievementRepository.save(ach);

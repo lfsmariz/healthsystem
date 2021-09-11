@@ -14,5 +14,4 @@ public class AchievementForm {
     private Long id_board;
     private String name;
     private Integer points;
-    private Integer planType;
 }
