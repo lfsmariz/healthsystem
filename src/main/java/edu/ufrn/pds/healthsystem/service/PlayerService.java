@@ -35,18 +35,19 @@ public class PlayerService {
         Player player = new Player();
         //framework
         Player playerFrame = (Player) fidelity.getPlayerControl().createPlayer(player, playerForm.getName());
+        playerFrame.setPlanType(playerForm.getPlanType());
 
         playerRepository.save(playerFrame);
 
         return new PlayerDTO(playerFrame);
     }
 
-    public PlayerDTO completeTask(Long idPlayer){
+    public PlayerDTO completeTask(Long idPlayer, int value){
         Player player = playerRepository.findById(idPlayer).orElseThrow(RuntimeException::new);
 
         //framework
 //        player.setPoints( player.getPoints() + 1);
-        fidelity.getBoardControl().completeTask(player, 10);
+        fidelity.getBoardControl().completeTask(player, value);
 
         Player p = playerRepository.save(player);
 

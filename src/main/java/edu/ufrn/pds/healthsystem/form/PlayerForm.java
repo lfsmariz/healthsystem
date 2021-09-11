@@ -9,4 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PlayerForm {
     private String name;
+    private Integer planType;
 }
