@@ -27,12 +27,12 @@ public class PlayerController {
     }
 
     @PostMapping("/complete_task")
-    public PlayerDTO completeTask(@RequestParam Long id_player){
-        return playerService.completeTask(id_player);
+    public PlayerDTO completeTask(@RequestParam Long id_player, @RequestParam int value){
+        return playerService.completeTask(id_player, value);
     }
 
     @PostMapping("/redeem_achievement")
-    public AchievementCompleteDTO completeTask(@RequestBody AchievementCompleteForm form){
+    public AchievementCompleteDTO redeemAchievement(@RequestBody AchievementCompleteForm form){
         return playerService.redeemAchievement(form);
     }
 

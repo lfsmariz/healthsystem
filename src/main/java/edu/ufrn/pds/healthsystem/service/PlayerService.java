@@ -41,12 +41,12 @@ public class PlayerService {
         return new PlayerDTO(playerFrame);
     }
 
-    public PlayerDTO completeTask(Long idPlayer){
+    public PlayerDTO completeTask(Long idPlayer, int value){
         Player player = playerRepository.findById(idPlayer).orElseThrow(RuntimeException::new);
 
         //framework
 //        player.setPoints( player.getPoints() + 1);
-        fidelity.getBoardControl().completeTask(player, 10);
+        fidelity.getBoardControl().completeTask(player, value);
 
         Player p = playerRepository.save(player);
 

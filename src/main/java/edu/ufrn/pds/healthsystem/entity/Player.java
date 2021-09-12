@@ -3,7 +3,6 @@ package edu.ufrn.pds.healthsystem.entity;
 import edu.ufrn.pds.healthsystem.framework.interfaces.AchievementFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.BoardFrame;
 import edu.ufrn.pds.healthsystem.framework.interfaces.PlayerFrame;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,8 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,10 +19,6 @@ import java.util.stream.Collectors;
 public class Player extends User implements PlayerFrame {
 
     private Integer points;
-
-    private Integer daysPresence;
-
-    private LocalDate lastRequiredAchievement;
 
     @ManyToMany(
             cascade = CascadeType.ALL,
@@ -38,8 +31,6 @@ public class Player extends User implements PlayerFrame {
     public Player(String name) {
         super(name);
         this.points = 0;
-        this.daysPresence = 0;
-        this.lastRequiredAchievement = LocalDate.now().minusMonths(1);
     }
 
     @Override
@@ -73,12 +64,7 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public void addPoints(Integer value) {
-        this.daysPresence = (this.daysPresence+1) % 7;
-
-        if(this.daysPresence == 0)
-            this.setPoints(this.getPoints() + value + 5);
-        else
-            this.setPoints(this.getPoints() + value);
+        this.setPoints(this.getPoints() + value);
     }
 
     @Override
@@ -93,15 +79,7 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public boolean canGetAchievement(AchievementFrame achievementFrame) {
-        LocalDate dateNow = LocalDate.now();
-
-        if(dateNow.getMonthValue() == lastRequiredAchievement.getMonthValue()
-                && dateNow.getYear() == lastRequiredAchievement.getYear()){
-            return  false;
-        }else{
-            lastRequiredAchievement = dateNow;
-            return true;
-        }
+        return true;
     }
 
     @Override
