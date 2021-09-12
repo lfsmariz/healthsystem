@@ -83,7 +83,12 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public boolean canGetAchievement(AchievementFrame achievementFrame) {
-        return true;
+        if(achievementFrame.getPoints() < 2000){
+            return true;
+        }else{
+            return this.vip;
+        }
+
     }
 
     @Override
