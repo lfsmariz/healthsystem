@@ -17,7 +17,7 @@ public class ConfigFidelity {
 
     PlayerControl playerControl = new PlayerControl();
     AdminControl adminControl = new AdminControl();
-    BoardControl boardControl = new BoardControl(true, 10);
+    BoardControl boardControl = new BoardControl(false, 0);
     AchievementControl achievementControl = new AchievementControl(true);
 
     return Fidelity.builder()
