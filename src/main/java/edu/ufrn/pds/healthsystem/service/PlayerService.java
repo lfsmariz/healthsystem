@@ -35,6 +35,7 @@ public class PlayerService {
         Player player = new Player();
         //framework
         Player playerFrame = (Player) fidelity.getPlayerControl().createPlayer(player, playerForm.getName());
+        playerFrame.setVip(playerForm.isVip());
 
         playerRepository.save(playerFrame);
 

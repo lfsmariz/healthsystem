@@ -12,10 +12,12 @@ public class PlayerDTO {
     private Long id;
     private String name;
     private Integer points;
+    private boolean vip;
 
     public PlayerDTO(Player player){
         id = player.getId();
         name = player.getName();
         points = player.getPoints();
+        vip = player.isVip();
     }
 }

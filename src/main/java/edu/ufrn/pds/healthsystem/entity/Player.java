@@ -20,6 +20,8 @@ public class Player extends User implements PlayerFrame {
 
     private Integer points;
 
+    private boolean vip;
+
     @ManyToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
@@ -32,6 +34,8 @@ public class Player extends User implements PlayerFrame {
         super(name);
         this.points = 0;
     }
+
+   public boolean isVip(){return this.vip;}
 
     @Override
     public PlayerFrame createPlayer(String name) {
