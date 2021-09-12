@@ -38,6 +38,8 @@ public class Player extends User implements PlayerFrame {
         this.points = 0;
     }
 
+    public Integer getPlanType(){return this.planType;}
+
     @Override
     public PlayerFrame createPlayer(String name) {
         return new Player(name);
