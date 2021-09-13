@@ -61,12 +61,12 @@ public class AdminService {
 //                .orElseThrow(RuntimeException::new);
 
         Achievement ach = (Achievement) fidelity.getAdminControl().createAchievement(admin, achievementForm.getName(), achievementForm.getPoints(), achievementForm.getId_board());
-
+        ach.setPlanType(achievementForm.getPlan_type());
 //        Achievement achievement = new Achievement(achievementForm, adminBoard);
 
         ach = achievementRepository.save(ach);
 
-        return new AchievementDTO(ach.getId(), ach.getName(), ach.getPoints(), ach.getBoard().getName());
+        return new AchievementDTO(ach.getId(), ach.getName(), ach.getPoints(), ach.getPlanType(), ach.getBoard().getName());
     }
 
     public RegisterDTO registerPlayer(RegisterPlayerForm registerPlayerForm) {
