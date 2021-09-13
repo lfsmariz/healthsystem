@@ -88,13 +88,9 @@ public class Player extends User implements PlayerFrame {
 
     @Override
     public boolean canGetAchievement(AchievementFrame achievementFrame) {
-        int typePlan = planType;
+        Achievement achievement = (Achievement) achievementFrame;
 
-        if (planType == 0){
-            typePlan = 1;
-        }
-
-        return achievementFrame.getPoints() <= (planType * 1000);
+        return this.planType >= (achievement.getPlanType());
     }
 
     @Override
